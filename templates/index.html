@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search Page</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+    }
+ 
+    $( "#search_name" ).autocomplete({
+      source: function( request, response ){
+      	var search_value = $('#search_name').val()	
+        $.ajax( {
+          headers: {"Access-Control-Allow-Credentials": true},
+          url: "http://localhost:8888/search/"+search_value,
+          dataType: "json",
+          data: {},
+          success: function( data ) {
+            response( data );
+          }
+        } );
+      },      
+    } );
+  } );
+  </script>
+</head>
+<body>
+ 
+<div class="ui-widget">
+  <label for="search_name">Search Name : </label>
+  <input id="search_name" minlength=3>
+</div>
+ 
+ 
+</body>
+</html>
